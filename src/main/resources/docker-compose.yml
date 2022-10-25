@@ -1,0 +1,27 @@
+version: '3'
+services:
+  tesco-party-database:
+    image: 'mysql:8'
+    restart: 'unless-stopped'
+    environment:
+      MYSQL_DATABASE: 'tesco'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'tesco-rules'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'tesco-rules'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - /Users/vlada/sandbox/micronaut_02/tesco-party-store/src/main/resources/dbvol:/var/lib/mysql
+        #- tesco-party-db:/Users/vlada/sandbox/micronaut_02/tesco-party-store/src/main/resources/dbvolume:/var/lib/mysql
+volumes:
+  tesco-party-db:
+    driver: local
+
